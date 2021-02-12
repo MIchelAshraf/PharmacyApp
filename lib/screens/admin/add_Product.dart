@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:pharmacynew/templates/GenericTextFeild.dart';
 import 'package:pharmacynew/models/Product.dart';
 import '../../constants.dart';
+import 'package:pharmacynew/models/Products.dart';
 final _product=Product();
 class AddProduct extends StatelessWidget {
   static String id='AddProduct';
-  String _name,_price,_description;
+  String _name,_description;
+ String _price;
+  final _Products =Products();
   final GlobalKey<FormState> _globalKey=GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -18,20 +21,20 @@ return Scaffold(
 mainAxisAlignment: MainAxisAlignment.center,
    children: <Widget>[
       GenericTextFeild(onClick: (value){
-        _product.pName=value;
+        _name=value;
 
 
       }, hint: 'Product Name'),
        SizedBox(height:10),
        GenericTextFeild(onClick: (value){
-         _product.pPrice=value;
+         _price=value;
 
 
 
        }, hint: 'Product Price'),
        SizedBox(height:10),
        GenericTextFeild(onClick: (value){
-         _product.pDescription=value;
+         _description=value;
 
        }, hint: 'Product Description'),
        SizedBox(height:10),
@@ -43,7 +46,13 @@ mainAxisAlignment: MainAxisAlignment.center,
            onPressed: (){if (_globalKey.currentState.validate())
 _globalKey.currentState.save();
 
-_product.addProduct();
+_Products.addProduct(Product(
+  pName: _name,
+  pPrice:_price,
+  pDescription: _description
+
+
+));
 
              },
            shape: RoundedRectangleBorder(
